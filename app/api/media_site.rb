@@ -25,7 +25,7 @@ module MediaSite
       # POST api/v1/articles
       desc 'Create a Article'
       params do
-        requires :title, type: String, desc: 'title'
+        requires :title, type: String, desc: 'article title'
         requires :author_id, type: Integer, desc: 'article author id'
       end
       post do
@@ -35,7 +35,7 @@ module MediaSite
       # DELETE api/v1/articles/:id
       desc 'Delete a Article'
       params do
-        requires :id, type: Integer, desc: 'Article id'
+        requires :id, type: Integer, desc: 'article id'
       end
       delete ':id' do
         Article.find(params[:id]).destroy
@@ -58,6 +58,24 @@ module MediaSite
       end
       get ':id' do
         Author.find_by(id: params[:id])
+      end
+
+      # POST api/v1/authors
+      desc 'Create a Author'
+      params do
+        requires :name, type: String, desc: 'author name'
+      end
+      post do
+        Author.create(name: params[:name])
+      end
+
+      # DELETE api/v1/authors/:id
+      desc 'Delete a Author'
+      params do
+        requires :id, type: Integer, desc: 'author id'
+      end
+      delete ':id' do
+        Author.find(params[:id]).destroy
       end
 
       # GET api/v1/authors/:id/articles
